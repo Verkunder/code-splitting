@@ -29,7 +29,7 @@ const DynamicImport = ({setShowModal} : {setShowModal: (state: boolean) => void}
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
                     The official version of his death is suicide by shooting himself in the head with a gun, but the rather unusual circumstances of his death still fuel active controversy.
                   </p>
-                  {/* <Image src={'https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/ede3a833-d958-4278-817c-e971959b2a0f/3840x'} alt={'kurt cobain'} width={300} height={300} /> */}
+                  <Image src={'https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/33e34079-8801-4863-aa9e-4447322da06a/orig'} alt={'kurt cobain'} width={300} height={300} />
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

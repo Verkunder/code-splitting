@@ -1,7 +1,9 @@
 'use client'
 
+import Loader from '@/components/lazy/Loader';
+import Mario from '@/components/lazy/Mario';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 
 const Modal = dynamic(() => import('../components/DynamicImport'));
 
@@ -21,6 +23,9 @@ const Home = () => {
         </button>
       </div>
       {showModal && <Modal setShowModal={setShowModal}  />}
+      <Suspense fallback={<Loader />}>
+        <Mario />
+      </Suspense>
     </div>
   )
 }
