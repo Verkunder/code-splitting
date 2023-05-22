@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -12,23 +10,53 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Code-splitting - это техника оптимизации производительности веб-приложений, которая позволяет разбить код приложения на более мелкие части (chunks), которые загружаются по мере необходимости. Это позволяет уменьшить время загрузки страницы и ускорить начальную загрузку приложения.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Code-splitting особенно полезен для больших приложений, которые содержат много кода. Вместо того, чтобы загружать весь код приложения сразу, мы можем разбить его на более мелкие части и загружать только те части, которые нужны для отображения текущей страницы. Например, если у нас есть приложение, которое состоит из нескольких страниц, мы можем загружать код, относящийся только к текущей странице, а не весь код приложения.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+import('./module.js').then(module => {
+// использование модуля
+});
+```
 
-## Learn More
+Пример использования динамического импорта:
 
-To learn more about Next.js, take a look at the following resources:
+```
+const button = document.querySelector('#myButton');
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+button.addEventListener('click', () => {
+  import('./myModule.js')
+    .then((module) => {
+      // использование модуля
+      module.myFunction();
+    })
+    .catch((error) => {
+      // обработка ошибки
+      console.error(error);
+    });
+});
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Как настроить в webpack
 
-## Deploy on Vercel
+```
+const path = require('path');
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+};
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Здесь мы указываем, что все общие модули должны быть вынесены в отдельные файлы с помощью опции splitChunks. Значение chunks: 'all' означает, что будут вынесены все общие модули, включая модули из сторонних библиотек.
+
+Также мы указываем, что выходные файлы должны иметь уникальные имена с помощью [name].[contenthash].js].
